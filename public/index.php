@@ -13,7 +13,7 @@ $conexion = DBConnection::setInstance()->getConnection();
 $blob = new Blob($conexion);
 $phpMailObj = new PHPMailer(true);
 
-if(!empty($_FILES)){
+if(!empty($_FILES) && !empty($_POST)){
   //Using file_get_contents without addslashes-recommended
   if($_FILES["file"]["size"] > 2097152){
     $ban = false;
