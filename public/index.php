@@ -14,10 +14,10 @@ $blob = new Blob($conexion);
 $phpMailObj = new PHPMailer(true);
 
 if(!empty($_FILES)){
-  //Using file_get_contents without addslashes-recomended
+  //Using file_get_contents without addslashes-recommended
   if($_FILES["file"]["size"] > 2097152){
     $ban = false;
-    $mensaje = "El tamaño de la imagen debe ser menor de 2MB";
+    $alert = "El tamaño de la imagen debe ser menor de 2MB";
   }else{
     $ban = $blob->insert($_POST["name"],file_get_contents($_FILES["file"]["tmp_name"]));
     $alert = "Hubo un error al registrar los datos";
@@ -75,11 +75,11 @@ $registers = $blob->getAll();
       ?>
       <form action="" method="post" enctype="multipart/form-data">
         <div class="formGroup">
-          <input type="text" name="name" id="name" class="inputText mdText white" required>
+          <input type="text" name="name" id="name" class="inputText mdText white" value="<?php echo (isset($ban) && $ban == false) ? $_POST["name"] : "" ?>" required>
           <label for="name" class="labelText mdText white">Name of the file</label>
         </div>
         <div class="formGroup">
-          <input type="email" name="email" id="email" class="inputText mdText white" required> 
+          <input type="email" name="email" id="email" class="inputText mdText white" value="<?php echo (isset($ban) && $ban == false) ? $_POST["email"] : "" ?>" required> 
           <label for="email" class="labelText mdText white">Email</label>
         </div>
         <div class="formGroup">
